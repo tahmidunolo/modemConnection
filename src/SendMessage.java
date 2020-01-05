@@ -29,7 +29,7 @@ public class SendMessage
                 System.out.println("  Signal Level: " + gateway.getSignalLevel() + " dBm");
                 System.out.println("  Battery Level: " + gateway.getBatteryLevel() + "%");
                 System.out.println();
-                OutboundMessage msg = new OutboundMessage("+8801912239643", "This is a test sms from modem!");
+                OutboundMessage msg = new OutboundMessage("+8801944337946", "This is a test sms from modem!");
                 Service.getInstance().sendMessage(msg);
                 System.out.println(msg);
                 System.out.println("Now Sleeping - Hit <enter> to terminate.");
