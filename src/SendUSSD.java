@@ -14,6 +14,7 @@ import org.smslib.Library;
 import org.smslib.Service;
 import org.smslib.USSDResponse;
 import org.smslib.modem.SerialModemGateway;
+import java.util.*;
 
 public class SendUSSD
 {
@@ -30,9 +31,19 @@ public class SendUSSD
                 gateway.setInbound(true);
                 gateway.setOutbound(true);
                 gateway.setSimPin("0000");
-                srv.setUSSDNotification(ussdNotification);
+//                srv.setUSSDNotification(ussdNotification);
                 srv.addGateway(gateway);
+                
+                System.out.println(new Date());
+                
                 srv.startService();
+                srv.setUSSDNotification(ussdNotification);
+                
+                USSDRequest req = new USSDRequest("*566#");
+                srv.sendUSSDRequest(req, gateway.getGatewayId());
+                
+                System.out.println(new Date());
+                
                 System.out.println();
                 System.out.println("Modem Information:");
                 System.out.println("  Manufacturer: " + gateway.getManufacturer());
@@ -43,13 +54,21 @@ public class SendUSSD
                 System.out.println("  Battery Level: " + gateway.getBatteryLevel() + "%");
                 System.out.println();
                 
-                USSDRequest req = new USSDRequest("*566#");
+//                USSDSession session = new USSDSession(gateway.getGatewayId());
+                
+//                System.out.println(session);
+                
+                System.out.println(new Date());
+                
+//                System.out.println(session.sendRequest(req));
                 
                 System.out.println(srv.getUSSDNotification());
                 
-                System.out.println(gateway.sendUSSDRequest(req));
+//                System.out.println(gateway.sendUSSDRequest(req));
                 
-                System.out.println(req.getRawRequest());
+//                System.out.println(req.getRawRequest());
+                
+//                System.out.println(new Date());
 
 //      String resp = gateway.sendUSSDCommand("*2#"); // not working; output -> null
 //      String resp = gateway.sendCustomATCommand("AT+CUSD=1,\"*2#\",15\r"); // not working; output -> error

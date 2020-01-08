@@ -8,13 +8,13 @@ import org.smslib.modem.SerialModemGateway;
 
 public class SendMessage
 {
-        public void doIt() throws Exception
+        public void SendSMS(String phNumber, String message) throws Exception
         {
                 OutboundNotification outboundNotification = new OutboundNotification();
                 System.out.println("Example: Send message from a serial gsm modem.");
                 System.out.println(Library.getLibraryDescription());
                 System.out.println("Version: " + Library.getLibraryVersion());
-                SerialModemGateway gateway = new SerialModemGateway("modem.com4", "COM4", 9600, "", "");
+                SerialModemGateway gateway = new SerialModemGateway("modem", "COM4", 9600, "", "");
                 gateway.setInbound(true);
                 gateway.setOutbound(true);
                 Service.getInstance().setOutboundMessageNotification(outboundNotification);
@@ -29,9 +29,12 @@ public class SendMessage
                 System.out.println("  Signal Level: " + gateway.getSignalLevel() + " dBm");
                 System.out.println("  Battery Level: " + gateway.getBatteryLevel() + "%");
                 System.out.println();
-                OutboundMessage msg = new OutboundMessage("+8801944337946", "This is a test sms from modem!");
+                OutboundMessage msg = new OutboundMessage(phNumber, message);
                 Service.getInstance().sendMessage(msg);
                 System.out.println(msg);
+                
+                System.out.println("");
+                
                 System.out.println("Now Sleeping - Hit <enter> to terminate.");
                 System.in.read();
                 Service.getInstance().stopService();
@@ -48,10 +51,11 @@ public class SendMessage
 
         public static void main(String args[])
         {
-                SendMessage app = new SendMessage();
+        		MessageUI ui = new MessageUI();
+        		SendMessage app = new SendMessage();
                 try
                 {
-                        app.doIt();
+                        app.SendSMS(ui.getPhoneNumber(), ui.getMessage());
                 }
                 catch (Exception e)
                 {
