@@ -6,6 +6,7 @@
 // For asynchronous dispatch, the example application sets a callback
 // notification, to see what's happened with messages.
 
+import org.smslib.*;
 import org.smslib.AGateway;
 import org.smslib.AGateway.Protocols;
 import org.smslib.IUSSDNotification;
@@ -24,7 +25,7 @@ public class SendUSSD
                 System.out.println(Library.getLibraryDescription());
                 System.out.println("Version: " + Library.getLibraryVersion());
                 srv = Service.getInstance();
-                SerialModemGateway gateway = new SerialModemGateway("modem.com4", "COM4", 115200, "", "");
+                SerialModemGateway gateway = new SerialModemGateway("modem", "COM4", 9600, "", "");
                 gateway.setProtocol(Protocols.PDU);
                 gateway.setInbound(true);
                 gateway.setOutbound(true);
@@ -41,10 +42,18 @@ public class SendUSSD
                 System.out.println("  Signal Level: " + gateway.getSignalLevel() + "%");
                 System.out.println("  Battery Level: " + gateway.getBatteryLevel() + "%");
                 System.out.println();
+                
+                USSDRequest req = new USSDRequest("*566#");
+                
+                System.out.println(srv.getUSSDNotification());
+                
+                System.out.println(gateway.sendUSSDRequest(req));
+                
+                System.out.println(req.getRawRequest());
 
-      //String resp = gateway.sendUSSDCommand("*2#"); // not working; output -> null
-      String resp = gateway.sendCustomATCommand("AT+CUSD=1,\"*2#\",15\r"); // not working; output -> error
-      System.out.println(resp);
+//      String resp = gateway.sendUSSDCommand("*2#"); // not working; output -> null
+//      String resp = gateway.sendCustomATCommand("AT+CUSD=1,\"*2#\",15\r"); // not working; output -> error
+//      System.out.println(resp);
 
       System.out.println("Now Sleeping - Hit <enter> to terminate.");
                 System.in.read();
