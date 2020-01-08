@@ -1,0 +1,22 @@
+Example: Send USSD Command from a serial gsm modem.
+SMSLib: A Java API library for sending and receiving SMS via a GSM modem or other supported gateways.
+This software is distributed under the terms of the Apache v2.0 License.
+Web Site: http://smslib.org
+Version: 3.5.3
+log4j:WARN No appenders could be found for logger (smslib).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+
+Modem Information:
+  Manufacturer: huawei
+  Model: E173
+  Serial No: 863617020670680
+  SIM IMSI: ** MASKED **
+  Signal Level: -71%
+  Battery Level: 0%
+
+SendUSSD$USSDNotification@1496d9f
+false
+AT+CUSD=1,"*566#",15
+
+Now Sleeping - Hit <enter> to terminate.
